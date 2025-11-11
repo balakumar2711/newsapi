@@ -4,9 +4,11 @@ from send_email import send_email
 #The API key from the News API
 API_KEY= "976bffa6cc5c44a592e042fef57314c"
 
+title = "tesla"
+
 #The URL that needs to be checked
 URL = ("https://newsapi.org/v2/everything?" \
-       "q=tesla&" \
+       f"q={title}&" \
        "from=2025-10-11&" \
        "sortBy=publishedAt&" \
        "apiKey=976bffa6cc5c44a592e042fef57314ce&language=en")
@@ -26,7 +28,10 @@ message = ""
 for article in content["articles"]:
     #Update the message body with the updated message
     if article["title"] is not None and article["description"] is not None:
-        message = message + article["title"] + "\n" + article["description"] + 2*"\n"
+        message = (message + article["title"] + \
+                   "\n" + article["description"] + \
+                   "\n" + article["url"] \
+                   + 2*"\n")
 
 #To encode the value to prevent range errors
 message = message.encode("utf-8")
