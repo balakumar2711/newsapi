@@ -24,11 +24,12 @@ content = request.json()
 #Declaring an empty string that will be updated to the send_email function argument
 message = ""
 
-#Access the items inside the dictionary
-for article in content["articles"]:
+#Access the first 20 items inside the dictionary
+for article in content["articles"][:20]:
     #Update the message body with the updated message
     if article["title"] is not None and article["description"] is not None:
-        message = (message + article["title"] + \
+        message = ( "Today's news" + "\n" + \
+                    message + article["title"] + \
                    "\n" + article["description"] + \
                    "\n" + article["url"] \
                    + 2*"\n")
