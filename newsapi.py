@@ -1,4 +1,5 @@
 import requests as r
+from send_email import send_email
 
 #The API key from the News API
 API_KEY= "976bffa6cc5c44a592e042fef57314c"
@@ -14,7 +15,16 @@ request = r.get(URL)
 #Get a dictionary with data
 content = request.json()
 
+#Declaring an empty string that will be updated to the send_email function argument
+message = ""
+
 #Access the items inside the dictionary
 for article in content["articles"]:
-    print(article["title"])
-    print(article["author"])
+    #Update the message body with the updated message
+    message = message + article["title"] + "\n" + article["description"] + 2*"\n"
+
+#To encode the value to prevent range errors
+message = message.encode("utf-8")
+
+#Use the send_email function to send the message
+send_email(message)
